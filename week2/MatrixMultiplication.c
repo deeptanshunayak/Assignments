@@ -1,66 +1,90 @@
-#include<stdio.h>
-#include<stdlib.h>
-void printtmatrix(int **arr,int n,int m);
-void takeinputs(int **arr,int n,int m);
-void allocatememory(int ***arr);
 
+#include <stdio.h>
+#include <stdlib.h>
 
-void main(){
+void allocatememory(int ***arr, int rows, int cols);
+void takeinputs(int **arr, int rows, int cols);
+void printtmatrix(int **arr, int rows, int cols);
+void matrixmultiplication(int **mat1, int **mat2, int ***result, int r1, int c1, int c2);
 
+int main() {
+    int **mat1, **mat2, **result;
+    int r1, c1, r2, c2;
 
- int **arr;
- allocatememory(&arr);
+    printf("Enter the rows and columns of the first matrix:\n");
+    scanf("%d %d", &r1, &c1);
 
+    allocatememory(&mat1, r1, c1);
 
+    printf("Enter elements of the first matrix:\n");
+    takeinputs(mat1, r1, c1);
 
+    printf("Enter the rows and columns of the second matrix:\n");
+    scanf("%d %d", &r2, &c2);
+
+    if (c1 != r2) {
+        printf("Matrix multiplication not possible\n");
+        return 1;
+    }
+
+    allocatememory(&mat2, r2, c2);
+
+    printf("Enter elements of the second matrix:\n");
+    takeinputs(mat2, r2, c2);
+
+    allocatememory(&result, r1, c2);
+
+    matrixmultiplication(mat1, mat2, &result, r1, c1, c2);
+
+    printf("The result of matrix multiplication is:\n");
+    printtmatrix(result, r1, c2);
+
+    for (int i = 0; i < r1; i++) free(mat1[i]);
+    free(mat1);
+
+    for (int i = 0; i < r2; i++) free(mat2[i]);
+    free(mat2);
+
+    for (int i = 0; i < r1; i++) free(result[i]);
+    free(result);
+
+    return 0;
 }
 
-
-void allocatememory(int ***arr){
-
-
-int n,m;
-printf("enter the rows of matrix\n");
-scanf("%d",&n);
-printf("enter the coumn of the matrix\n");
-scanf("%d",&m);
-
-*arr=(int **)malloc(n*sizeof(int *));
-
-for(int i=0;i<n;i++){
-
-(*arr)[i]=(int *)malloc(m*sizeof(int));
+void allocatememory(int ***arr, int rows, int cols) {
+    *arr = (int **)malloc(rows * sizeof(int *));
+    for (int i = 0; i < rows; i++) {
+        (*arr)[i] = (int *)malloc(cols * sizeof(int));
+    }
 }
-takeinputs(*arr,n,m);
-printmatrix(*arr,n,m);
-}
-void takeinputs(int **arr,int n,int m){
 
-for(int i=0;i<n;i++){
-
-	for(int j=0;j<m;j++){
-	scanf("%d",&arr[i][j]);
-	
-	}
-
-}
- 
-}
-void printmatrix(int **arr,int n,int m){
-
-for(int i=0;i<n;i++){
-
-        for(int j=0;j<m;j++){
-        printf("%d ",arr[i][j]);
-
+void takeinputs(int **arr, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            scanf("%d", &arr[i][j]);
         }
-	printf("\n");
-
+    }
 }
 
-
-
+void printtmatrix(int **arr, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
 }
 
-
+void matrixmultiplication(int **mat1, int **mat2, int ***result, int r1, int c1, int c2) {
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            (*result)[i][j] = 0;
+            for (int k = 0; k < c1; k++) {
+                (*result)[i][j] += mat1[i][k] * mat2[k][j];
+            
+	    }
+	}
+    }
+}
 
