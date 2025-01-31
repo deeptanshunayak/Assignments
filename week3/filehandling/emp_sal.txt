@@ -1,0 +1,1 @@
+emp_id(101), emp_name(Rahul), total_days(30), absent_days(5), month_sal(20000), deducted_sal(3330.00), net_sal(16670.00)
