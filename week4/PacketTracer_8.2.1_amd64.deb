@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+        <script>/***
+#Step1: Add Event Listener for the OneTrust First Visit (before consent cookies are created)
+Note: This snippet needs to be placed before the inclusion of ctm-core.js
+***/
+function OTFirstVisitHandler(){
+//Initiate tags in Non-EU for the first visit and will be blocked for EU
+if (!ctm.gdpr.isEU()) {
+initGdprRuleTags();
+}
+} 
+/***
+#Step2: Define a function which initiates the required tags on the page, based on GDPR Consent flag
+***/
+function initGdprRuleTags() {
+/**
+##Set One Trust Cooke Flags : Do not modify this logic
+**/
+var isPerfFlag = ((typeof ctm.gdpr === "object") && (typeof ctm.gdpr.getPerformanceFlag === "function"))?ctm.gdpr.getPerformanceFlag():"false";
+var isTargFlag = ((typeof ctm.gdpr === "object") && (typeof ctm.gdpr.getTargetingFlag === "function"))?ctm.gdpr.getTargetingFlag():"false";
+/*End of OT cookie flags*/
+/**
+* Utility Function to inject tag javascript dynamically on the page
+* @param {String} scriptUrl The Script URL to load
+* @param {String} identifier for the injected script
+* @param {function} callback The function to execute after the script has loaded
+* this can be customized based on the requirements of the application, like including a callback etc.
+**/
+
+function injectTagScript(scriptUrl,id,callback) {
+var scriptId = (typeof id !=="undefined")?id:"";
+var existingScript = document.getElementById(scriptId);
+if (!existingScript) { // inject script if does not included earlier
+var d, s;
+d = document;
+s = 'script';
+var js, fjs = d.getElementsByTagName(s)[0];
+js = d.createElement(s);
+js.id = scriptId;
+js.src = scriptUrl;
+fjs.parentNode.insertBefore(js, fjs);
+js.onload= function(){
+if(callback) callback();
+};
+} else if (existingScript && callback) {
+//execute callback if script is already loaded
+callback();
+}
+}
+/*end of injectTagScript utility function */
+
+/**
+## Load respective tag scripts based on User consent (GDPR Flag)
+**/
+
+/* #### Initiate media Tags ##### */
+if (isTargFlag ==='true') {
+//console.log('#### Initiate media Tags #####');
+injectTagScript("//www.googletagmanager.com/gtm.js?id=GTM-P253W44","gtm", function(){console.log("GTM Loaded");});
+}
+
+/* #### Initiate Analytics Tags ##### */
+if (isPerfFlag ==='true') {
+}
+/** ## End of Code Loading tag scripts **/
+} </script>
+      <script type="text/javascript" src="//www.cisco.com/c/dam/cdc/t/ctm-core.js"></script>
+    <link rel="profile" href="http://www.w3.org/1999/xhtml/vocab" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="/portal/welcome-to-legacy-netacad" />
+<link rel="shortlink" href="/portal/node/7122" />
+<link rel="shortcut icon" href="https://legacy.netacad.com/portal/sites/all/themes/custom/post_login/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta name="robots" content="noindex" />
+  <title>Welcome to Legacy Netacad! | Networking Academy</title>
+  <style>
+@import url("https://legacy.netacad.com/portal/modules/system/system.base.css?srjxs7");
+</style>
+<style>
+@import url("https://legacy.netacad.com/portal/sites/all/modules/custom/netacad/entities/academy/css/academy.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/default/files/less/alumni_self_enroll_styles.Vf-Sfbk6HT5mPyAsz5GREy54tNx37H_Mu-naXdu67DU.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/modules/contrib/deploy/css/deploy.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/modules/field/theme/field.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/modules/custom/netacad/css/fontawesome-all.min.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/default/files/less/netacad_certificates_letters.O69QCSpN-g_fvuWJagvK4qPgYur99RVmd-_QM2RAcZ0.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/default/files/less/dashboard.tZr9WL52CWcE96judIT0_Fqr0BDX1HBlu9oYP-Y4DyU.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/modules/node/node.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/modules/contrib/office_hours/office_hours.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/default/files/less/self_enrollment.1llenJpxITEckbs1raKtfwLx7UhQC4NJ_3dSRyJwMnI.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/default/files/less/self-enroll-page-settings.TeGYnClJl654-_x7Cdf3D2HdaxBrBbH_RDNqmHXsD4U.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/modules/contrib/extlink/css/extlink.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/modules/contrib/views/css/views.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/modules/contrib/media/modules/media_wysiwyg/css/media_wysiwyg.base.css?srjxs7");
+</style>
+<style>
+@import url("https://legacy.netacad.com/portal/sites/all/modules/contrib/ctools/css/ctools.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/modules/contrib/views_data_export/views_data_export.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/modules/locale/locale.css?srjxs7");
+</style>
+<style>
+@import url("https://legacy.netacad.com/portal/sites/all/themes/custom/cisco_ui_kit/assets/css/bootstrap.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/all/themes/custom/cisco_ui_kit/assets/css/cui-standard.min.css?srjxs7");
+@import url("https://legacy.netacad.com/portal/sites/default/files/less/custom.724GPkC5RuP2im1zUpWtOXu8BLZdLUYTq-vbSG9U8JY.css?srjxs7");
+</style>
+
+  <!-- HTML5 element support for IE6-8 -->
+  <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script>(function(w,d,s,l,i){
+
+  w[l]=w[l]||[];
+  w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0];
+  var j=d.createElement(s);
+  var dl=l!='dataLayer'?'&l='+l:'';
+  j.type='text/javascript';
+  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';
+  j.async=true;
+  f.parentNode.insertBefore(j,f);
+
+})(window,document,'script','dataLayer','GTM-P253W44');</script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/jquery_update/replace/jquery/3.5/jquery.min.js?v=3.5.1"></script>
+<script>jQuery.migrateMute=true;jQuery.migrateTrace=false;</script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/jquery_update/replace/jquery-migrate/3/jquery-migrate.min.js?v=3"></script>
+<script src="https://legacy.netacad.com/portal/misc/jquery-extend-3.4.0.js?v=3.5.1"></script>
+<script src="https://legacy.netacad.com/portal/misc/jquery-html-prefilter-3.5.0-backport.js?v=3.5.1"></script>
+<script src="https://legacy.netacad.com/portal/misc/jquery.once.js?v=1.2"></script>
+<script src="https://legacy.netacad.com/portal/misc/drupal.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/jquery_update/replace/ui/external/jquery.cookie.js?v=67fb34f6a866c40d0570"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/jquery_update/replace/jquery.form/4/jquery.form.min.js?v=4.2.1"></script>
+<script src="https://legacy.netacad.com/portal/misc/ajax.js?v=7.102"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/jquery_update/js/jquery_update.js?v=0.0.1"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/custom/extensions/distance_learning/js/distance_learning.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/custom/netacad/js/netacad.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/custom/netacad/js/validation.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/custom/netacad/components/netacad_dashboard/js/colResizable-1.6.min.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/custom/netacad/components/netacad_dashboard/js/customColResizable.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/custom/netacad/components/netacad_states/js/netacad_statues.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/custom/extensions/netacad_virtual_bot/js/netacad_virtual_bot.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/behavior_weights/behavior_weights.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/views/js/base.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/contrib/bootstrap/js/misc/_progress.js?v=7.102"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/views/js/ajax_view.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/views_flag_refresh/views_flag_refresh.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/views_refresh/views_refresh.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/modules/contrib/extlink/js/extlink.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/cisco_ui_kit/assets/js/bootstrap.min.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/cisco_ui_kit/assets/js/jquery.scrollTo.min.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/cisco_ui_kit/assets/js/cui.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/post_login/assets/js/maintenanceAlerts.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/post_login/assets/js/custom.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/post_login/assets/js/header.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/post_login/assets/js/slide-menu.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/custom/post_login/assets/js/accessibility.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/contrib/bootstrap/js/modules/views/js/ajax_view.js?srjxs7"></script>
+<script src="https://legacy.netacad.com/portal/sites/all/themes/contrib/bootstrap/js/misc/ajax.js?srjxs7"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/portal\/","pathPrefix":"","setHasJsCookie":0,"ajaxPageState":{"theme":"post_login_theme","theme_token":"s5TdZ14fjr0JNM9PgM8e38TW3cTOFrcTnCThCZz5ECg","jquery_version":"3.5","js":{"sites\/all\/themes\/contrib\/bootstrap\/js\/bootstrap.js":1,"0":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery\/3.5\/jquery.min.js":1,"1":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery-migrate\/3\/jquery-migrate.min.js":1,"misc\/jquery-extend-3.4.0.js":1,"misc\/jquery-html-prefilter-3.5.0-backport.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/external\/jquery.cookie.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery.form\/4\/jquery.form.min.js":1,"misc\/ajax.js":1,"sites\/all\/modules\/contrib\/jquery_update\/js\/jquery_update.js":1,"sites\/all\/modules\/custom\/extensions\/distance_learning\/js\/distance_learning.js":1,"sites\/all\/modules\/custom\/netacad\/js\/netacad.js":1,"sites\/all\/modules\/custom\/netacad\/js\/validation.js":1,"sites\/all\/modules\/custom\/netacad\/components\/netacad_dashboard\/js\/colResizable-1.6.min.js":1,"sites\/all\/modules\/custom\/netacad\/components\/netacad_dashboard\/js\/customColResizable.js":1,"sites\/all\/modules\/custom\/netacad\/components\/netacad_states\/js\/netacad_statues.js":1,"sites\/all\/modules\/custom\/extensions\/netacad_virtual_bot\/js\/netacad_virtual_bot.js":1,"sites\/all\/modules\/contrib\/behavior_weights\/behavior_weights.js":1,"sites\/all\/modules\/contrib\/views\/js\/base.js":1,"sites\/all\/themes\/contrib\/bootstrap\/js\/misc\/_progress.js":1,"sites\/all\/modules\/contrib\/views\/js\/ajax_view.js":1,"sites\/all\/modules\/contrib\/views_flag_refresh\/views_flag_refresh.js":1,"sites\/all\/modules\/contrib\/views_refresh\/views_refresh.js":1,"sites\/all\/modules\/contrib\/extlink\/js\/extlink.js":1,"sites\/all\/themes\/custom\/cisco_ui_kit\/assets\/js\/bootstrap.min.js":1,"sites\/all\/themes\/custom\/cisco_ui_kit\/assets\/js\/jquery.scrollTo.min.js":1,"sites\/all\/themes\/custom\/cisco_ui_kit\/assets\/js\/cui.js":1,"sites\/all\/themes\/custom\/post_login\/assets\/js\/maintenanceAlerts.js":1,"sites\/all\/themes\/custom\/post_login\/assets\/js\/custom.js":1,"sites\/all\/themes\/custom\/post_login\/assets\/js\/header.js":1,"sites\/all\/themes\/custom\/post_login\/assets\/js\/slide-menu.js":1,"sites\/all\/themes\/custom\/post_login\/assets\/js\/accessibility.js":1,"sites\/all\/themes\/contrib\/bootstrap\/js\/modules\/views\/js\/ajax_view.js":1,"sites\/all\/themes\/contrib\/bootstrap\/js\/misc\/ajax.js":1},"css":{"modules\/system\/system.base.css":1,"sites\/all\/modules\/custom\/netacad\/entities\/academy\/css\/academy.css":1,"sites\/all\/modules\/custom\/extensions\/alumni_self_enroll\/css\/alumni_self_enroll_styles.css.less":1,"sites\/all\/modules\/contrib\/deploy\/css\/deploy.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/custom\/netacad\/css\/fontawesome-all.min.css":1,"sites\/all\/modules\/custom\/extensions\/netacad_certificates_letters\/css\/netacad_certificates_letters.css.less":1,"sites\/all\/modules\/custom\/netacad\/components\/netacad_dashboard\/css\/dashboard.css.less":1,"modules\/node\/node.css":1,"sites\/all\/modules\/contrib\/office_hours\/office_hours.css":1,"sites\/all\/modules\/custom\/extensions\/student_self_enroll\/css\/self_enrollment.css.less":1,"sites\/all\/modules\/custom\/extensions\/student_self_enroll\/css\/self-enroll-page-settings.css.less":1,"sites\/all\/modules\/contrib\/extlink\/css\/extlink.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/all\/modules\/contrib\/media\/modules\/media_wysiwyg\/css\/media_wysiwyg.base.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/contrib\/views_data_export\/views_data_export.css":1,"modules\/locale\/locale.css":1,"sites\/all\/themes\/custom\/cisco_ui_kit\/assets\/css\/bootstrap.css":1,"sites\/all\/themes\/custom\/cisco_ui_kit\/assets\/css\/cui-standard.min.css":1,"sites\/all\/themes\/custom\/post_login\/assets\/css\/custom.css.less":1}},"views":{"ajax_path":"\/portal\/views\/ajax","ajaxViews":{"views_dom_id:c3210cb2f15eb2ac23624d8d73252241":{"view_name":"maintenance_alert","view_display_id":"block","view_args":"","view_path":"node\/7122","view_base_path":null,"view_dom_id":"c3210cb2f15eb2ac23624d8d73252241","pager_element":0}}},"urlIsAjaxTrusted":{"\/portal\/views\/ajax":true},"better_exposed_filters":{"views":{"maintenance_alert":{"displays":{"block":{"filters":[]}}}}},"viewsFlagRefresh":{"imagePath":"\/portal\/sites\/all\/modules\/contrib\/views_flag_refresh\/images"},"viewsRefresh":{"c3210cb2f15eb2ac23624d8d73252241":""},"custom_netacad":{"user":{"uid":0},"appkey":"AD-AAB-ABN-FGS"},"extlink":{"extTarget":"_blank","extClass":0,"extLabel":"(link is external)","extImgClass":0,"extIconPlacement":"append","extSubdomains":1,"extExclude":"(netacad\\.com)|(instructure\\.com)|(canvaslms\\.com)","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":0,"extAlertText":"This link will take you to an external web site. We are not responsible for their content.","mailtoClass":0,"mailtoLabel":"(link sends e-mail)","extUseFontAwesome":false},"netacad_validation":{"invalid_classes":["invalid"],"valid_classes":["valid"],"dirty_classes":["dirty"],"error_message_template":"\u003Cdiv class=\u0022[CLASSES]\u0022\u003E\n  [DECORATOR]\n  \u003Cspan\u003E[ERROR_MESSAGE]\u003C\/span\u003E\n\u003C\/div\u003E","netacad_date_format":"d M Y","isSystemPath":false},"bootstrap":{"anchorsFix":"0","anchorsSmoothScrolling":"0","formHasError":1,"popoverEnabled":1,"popoverOptions":{"animation":1,"html":0,"placement":"right","selector":"","trigger":"click","triggerAutoclose":1,"title":"","content":"","delay":0,"container":"body"},"tooltipEnabled":1,"tooltipOptions":{"animation":1,"html":0,"placement":"auto left","selector":"","trigger":"hover focus","delay":0,"container":"body"}}});</script>
+  <script charset='UTF-8'>
+    //GTM Loader Configuration
+    window["dataLayer"] = window["dataLayer"] || [];
+    window["dataLayer"].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    //End of GTM Configuration
+
+    window['adrum-start-time'] = new Date().getTime();
+    (function(config){
+      config.appKey = Drupal.settings.custom_netacad.appkey;
+      config.adrumExtUrlHttp = 'http://cdn.appdynamics.com';
+      config.adrumExtUrlHttps = 'https://cdn.appdynamics.com';
+      config.beaconUrlHttp = 'http://col.eum-appdynamics.com';
+      config.beaconUrlHttps = 'https://col.eum-appdynamics.com';
+      config.xd = {enable : false};
+    })(window['adrum-config'] || (window['adrum-config'] = {}));
+  </script>
+  <script src='//cdn.appdynamics.com/adrum/adrum-4.5.7.1910.js'></script>
+  <style>
+            :root {
+                --site-nav-header-height: 25px;
+            }
+            .site-nav-header {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                align-items: center;
+                height: var(--site-nav-header-height);
+                overflow: visible;
+                z-index: 1030;
+                background: #434343;
+                justify-content: space-between;
+                padding: 0px 22px;
+            }
+            .site-nav-header .site-nav-header-left-nav {
+                height: 100%;
+                display: flex;
+            }
+            .site-nav-header .site-nav-header-left-nav a {
+                display: flex;
+                align-items: center;
+                padding: 0px 10px;
+                font-size: 10px;
+                cursor: pointer;
+                border: none;
+                text-decoration: none !important;
+                font-weight: bold;
+                text-align: center;
+                justify-content: center;
+                transition: transform .15s;
+            }
+            .site-nav-header .site-nav-header-left-nav a.active {
+                color: #000 !important;
+                background-color: #fff !important;
+            }
+            .site-nav-header .site-nav-header-left-nav a.in-active {
+                color: #333 !important;
+                background-color: #e3e3e3 !important;
+            }
+            .site-nav-header .site-nav-header-left-nav a.in-active.site-nav-header-left-nav-sfa {
+                color: #333 !important;
+                background-color: #6abf4b !important;
+            }
+            .site-nav-header .site-nav-header-left-nav a.in-active.site-nav-header-left-nav-sfa:hover {
+                background-color: #58a03d !important;
+            }
+            .site-nav-header .site-nav-header-left-nav a.in-active.site-nav-header-left-nav-netacad {
+                color: #fff !important;
+                background-color: #176e9a !important;
+            }
+            .site-nav-header .site-nav-header-left-nav a.in-active.site-nav-header-left-nav-netacad:hover {
+                background-color: #104e6c !important
+            }
+            
+            .site-nav-header .site-nav-header-left-nav a.in-active:active{
+                transform: scale(0.9)
+            }
+
+            @media only screen and (max-width: 600px) {
+                .site-nav-header{
+                    padding: 0;
+                }
+                .site-nav-header-right-nav {
+                    display: none !important;
+                }
+                .site-nav-header .site-nav-header-left-nav {
+                    flex: 1;
+                }
+                .site-nav-header .site-nav-header-left-nav a {
+                    flex: 1;
+                }
+            }
+        </style>
+
+                              <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="C9PWB-KYUKC-VC2BK-E8D5Y-BXX4E",function(){function e(){if(!o){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,i.parentNode.appendChild(e),o=!0}}function t(e){o=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(i.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",i.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"C9PWB-KYUKC-VC2BK-E8D5Y-BXX4E";var i=document.currentScript||document.getElementsByTagName("script")[0],o=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!o)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),i.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="b2h6aatipbajsz5mecpq-f-9b0587cf8-clientnsv4-s.akamaihd.net",i="false"=="true"?2:1,o={"ak.v":"39","ak.cp":"1687809","ak.ai":parseInt("309286",10),"ak.ol":"0","ak.cr":30,"ak.ipv":4,"ak.proto":"http/1.1","ak.rid":"27e9297b","ak.r":48367,"ak.a2":n,"ak.m":"a","ak.n":"essl","ak.bpcip":"14.143.224.0","ak.cport":45872,"ak.gh":"23.64.59.172","ak.quicv":"","ak.tlsv":"tls1.2","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"reno","ak.t":"1739333791","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==/zRMmbdSc0boFuwZ4ItpffBdF5CEa0MMv7obYpzM7EYZqdC96xUu6Mn64cVaxssDWAAugb0oUkWP9Snh/1iQJyb3qWjWx5FHeQzv3Iw7i6dAJ/sRrhgzG2EwGZdrqEicsTuwOtWEsehqk1JUj2a6MCBLG1R3iu+RQjp6waA77P+/d+yfsbL3xOuq5NTxa1Feq1DT2/EpcMNMGDFoRvMV3D+3YumauzKwf7KONQsZKNId54IvPo4aW2tPaG6Q0Y9TyFxwXN8VCrmxhfsWRzvqXv/xOu9tnoMyZ+qstYRU4gmjYLbqdHLUbXNzkE3yKajfdxhHOv2sQct2GOWGwmMPvyFCTz19ow5HMu/J1lexIClfPlZY3fYPX+sA4YVsRghs939N940w8Huu68qIouYr9+xJUykCWwqtqh9bnLZ1dog=","ak.pv":"323","ak.dpoabenc":"","ak.tf":i};if(""!==t)o["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))o["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(o)},rv:function(){var e=["ak.bpcip","ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:o,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+
+<body class='html not-front not-logged-in no-sidebars page-node page-node- page-node-7122 node-type-page i18n-en cui template--cdc' class="html not-front not-logged-in no-sidebars page-node page-node- page-node-7122 node-type-page i18n-en">
+  <div id="skip-link">
+    <a href="#main-content" class="element-focusable" tabindex="1">Skip to main content</a>
+  </div>
+  <div class="site-nav-header" id="siteNavHeader">
+            <div class="site-nav-header-left-nav">                
+                                                    <a href="https://www.netacad.com" class="in-active site-nav-header-left-nav-sfa">NetAcad</a>
+                    <a href="https://legacy.netacad.com/portal/welcome-to-legacy-netacad" class="active site-nav-header-left-nav-netacad"
+                        >Legacy NetAcad</a>
+                            </div>
+        </div>
+    <div class="region region-page-top">
+    <noscript aria-hidden="true"><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P253W44"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>  </div>
+  <header class="header header--regular global-header" style="margin-top: 25px;">
+  <div class="header-bar">
+    <div class="header-bar__cisco-logo">
+                  <a tabindex="-1" href="https://www.netacad.com">
+        <div class="cisco-logo">
+          <img  src="/portal/sites/all/themes/custom/post_login/assets/img/cisco_netacad_logo.png" />
+        </div>
+      </a>
+          </div>
+    <div class="header-bar__main">
+      <div class="header-heading" role="application">
+        <button type="button" class="btn slide-menu-control navbar-toggle btn btn--small btn--icon toggle-menu"
+                data-target="push-mobile-menu" data-action="toggle">
+          <span class="icon-list-menu"></span>
+        </button>
+               </div>
+    </div>
+    <div class="header-toolbar headerlang">
+        <div class="region region-header-language">
+    <section id="block-locale-language" class="block block-locale clearfix">
+  <div class="item-list">
+		<ul class="nav navbar-nav list list list--inline">
+			<li>
+				<a href="#" class="dropdown-toggle nav-link" tabindex="1000" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span id="selected-item">Language</span></a>
+	  			<ul class="dropdown-menu"><li><a href="/portal/welcome-to-legacy-netacad" class="dropdow-item active" title="English" tabindex="1000">English</a></li>
+<li><a href="/portal/ar/welcome-to-legacy-netacad" class="dropdow-item" title="العربية" tabindex="1000">العربية</a></li>
+<li><a href="/portal/fr/welcome-to-legacy-netacad" class="dropdow-item" title="Français" tabindex="1000">Français</a></li>
+<li><a href="/portal/pt-br/welcome-to-legacy-netacad" class="dropdow-item" title="Português" tabindex="1000">Português</a></li>
+<li><a href="/portal/es/welcome-to-legacy-netacad" class="dropdow-item" title="Español" tabindex="1000">Español</a></li>
+</ul>	  	</li>
+		</ul>
+	</div>
+</section>
+  </div>
+    </div>
+    <div class="header-toolbar headerloginlogout">
+          </div>
+
+    <div class="header-toolbar headerloginlogout">
+                                    <div class="region region-header-user-login">
+    <section id="block-system-user-menu" class="block block-system block-menu clearfix">
+
+      
+  <ul class="menu nav"><li class="first last leaf"><a href="https://legacy.netacad.com/portal/saml_login?ReturnTo=https://legacy.netacad.com/portal/dashboard" title="" tabindex="1000">Log In</a></li>
+</ul>
+</section>
+  </div>
+          </div>
+
+  </div>
+</header>
+
+  <main id="main-content">
+  <nav class="slide-menu" id="push-mobile-menu">
+        <div class="region region-sidebar-left">
+    <section id="block-menu-block-2" class="block block-menu-block clearfix">
+
+      
+  <div class="menu-block-wrapper menu-block-2 menu-name-user-menu parent-mlid-0 menu-level-1">
+  <ul><li class="first last leaf menu-mlid-6559"><a href="https://legacy.netacad.com/portal/saml_login?ReturnTo=https://legacy.netacad.com/portal/dashboard" title="">Log In</a></li>
+</ul></div>
+
+</section>
+<section id="block-menu-block-1" class="block block-menu-block clearfix">
+
+      
+  
+</section>
+  </div>
+  </nav>
+  <div class="main-content">
+    <div class="container">
+          
+                          <div class="row">
+          <div class="col-sm-12">
+                        </div>
+      </div>
+              
+      <div class="region region-content">
+    <section id="block-system-main" class="block block-system clearfix">
+
+      
+  <article id="node-7122" class="node node-page clearfix">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.divider-vertical {
+  border-left: 2px solid #DFDFDF;
+  height: 250px;
+}
+
+/*--><!]]>*/
+</style><div class="container legacy-container">
+<div class="row text-center">
+<div class="col-md-12"><img alt="Welcome to Legacy Netacad!" height="150px" src="https://legacy.netacad.com/portal/sites/default/files/home-hero-25th-800.png" width="267" />
+<h2>Welcome to Legacy NetAcad!</h2>
+<p class="base-margin base-padding-bottom">Develop skills that will make you in-demand everywhere.</p>
+</div>
+</div>
+</div>
+<div class="container text-center base-padding">
+<div class="row">
+<div class="col-md">
+<div class="base-padding"><img alt="Login to Legacy Netacad" src="https://legacy.netacad.com/portal/sites/default/files/icon-akar-key.svg" style="width: 42px;" />
+<p class="base-padding">To access your courses from the legacy Netacad experience, please login.</p>
+<p class="base-padding-top"><a aria-label="Login to legacy NetAcad" class="btn btn--small btn--primary" href="https://legacy.netacad.com/portal/saml_login?ReturnTo=https://legacy.netacad.com/portal/dashboard">Login to legacy NetAcad</a></p>
+</div>
+</div>
+<div class="hidden-xs divider-vertical"> </div>
+<div class="col-md">
+<div class="base-padding"><img alt="Resend activation email" src="https://legacy.netacad.com/portal/sites/default/files/icon_feather-mail.svg" style="width: 42px;vertical-align: baseline;" />
+<p class="base-padding">If your activation link is expired, click below to resent the activation email.</p>
+<p class="base-padding-top"><a aria-label="Resend activation email" class="btn btn--small btn--primary" href="https://legacy.netacad.com/portal/user/activate">Resend activation email</a></p>
+</div>
+</div>
+<div class="hidden-xs divider-vertical"> </div>
+<div class="col-md">
+<div class="base-padding"><img alt="Redeem seat token" src="https://legacy.netacad.com/portal/sites/default/files/noun-exam-6648741.svg" style="width: 42px;" />
+<p class="base-padding">If you have a seat token from your instructor, click below to redeem it.</p>
+<p class="base-padding-top"><a aria-label="Redeem seat token" class="btn btn--small btn--primary" href="https://legacy.netacad.com/portal/user/redeem/token">Redeem seat token</a></p>
+</div>
+</div>
+</div>
+</div>
+</div></div></div>    </article>
+
+</section>
+  </div>
+    </div>
+  </div>
+</main>
+
+<footer class="page-footer">
+  
+      <div class="row">
+      <div class="col-sm-12">
+          <div class="region region-footer">
+    <section id="block-netacad-netacad-footer" class="block block-netacad clearfix">
+
+      
+  
+<div>
+  Cisco Networking Academy is a global IT and cybersecurity education program that partners with learning institutions around the world to empower all people with career opportunities.
+  It is Cisco’s largest and longest-running Cisco Corporate Social Responsibility program.</div>
+<ul class="links footer-links"><li class="menu-6576 first"><a href="https://legacy.netacad.com/portal/sites/default/files/tc/netacad-terms-and-conditions-en.pdf" title="" target="_blank" tabindex="32002">Terms and Conditions</a></li>
+<li class="menu-6590"><a href="http://www.cisco.com/web/siteassets/legal/privacy.html" target="_blank" tabindex="32002">Privacy Statement</a></li>
+<li class="menu-6588"><a href="http://www.cisco.com/web/siteassets/legal/privacy_full.html#cookies" target="_blank" tabindex="32002">Cookie Policy</a></li>
+<li class="menu-6656"><a href="https://www.netacad.com/data-protection" title="" target="_blank" tabindex="32002">Data Protection</a></li>
+<li class="menu-6592"><a href="http://www.cisco.com/web/siteassets/legal/trademark.html" target="_blank" tabindex="32002">Trademarks</a></li>
+<li class="menu-8005 last"><a href="https://www.netacad.com/accessibility" title="" target="_blank" tabindex="32002">Accessibility</a></li>
+</ul>
+</section>
+  </div>
+      </div>
+    </div>
+  
+  </footer>  <script src="https://legacy.netacad.com/portal/sites/all/themes/contrib/bootstrap/js/bootstrap.js?srjxs7"></script>
+      <script>/***
+#Step 4: include Code snipppet to initiate tags, after 'ctm-core.js' inclusion
+## preferably before the end of the body tag
+***/
+if ((typeof ctm !== "undefined") && (typeof ctm.gdpr === "object") && (typeof
+ctm.gdpr.isOTEnabled === "function") && ctm.gdpr.isOTEnabled()) {
+// if it is first visit
+if (ctm.gdpr.isFirstVisit) {
+//if first visit event is already triggered
+if (ctm.gdpr.isFirstVisitEventTriggered) {
+OTFirstVisitHandler();
+} else {
+window.addEventListener("OTFirstVisit", OTFirstVisitHandler);
+}
+} else if (!ctm.gdpr.isFirstVisit && ctm.gdpr.isOTCookieAvailable()) {
+//for subsequent visits
+//Not a first visit initiate tags
+initGdprRuleTags();
+}
+} </script>
+ </body>
+</html>
